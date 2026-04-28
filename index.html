@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Reporte de Resultados - Semana 17</title>
+    <title id="page-title">Reporte de Resultados</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
@@ -23,7 +23,7 @@
     <!-- Header -->
     <header class="bg-slate-800 text-white py-8 mb-8 shadow-lg">
         <div class="container mx-auto px-4 text-center">
-            <h1 class="text-3xl font-bold">Resumen Operativo - Semana 17</h1>
+            <h1 id="main-title" class="text-3xl font-bold">Resumen Operativo</h1>
             <p class="text-slate-300 mt-2">Análisis de Eficiencia y KPIs por Región</p>
         </div>
     </header>
@@ -34,30 +34,30 @@
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             <div class="card border-l-4 border-yellow-400">
                 <p class="metric-label">Cabos</p>
-                <p class="metric-value">95.37%</p>
+                <p class="metric-value" id="summary-val-0">95.37%</p>
                 <div class="w-full bg-gray-200 h-2 rounded-full mt-2">
-                    <div class="bg-yellow-400 h-2 rounded-full" style="width: 95.37%"></div>
+                    <div class="bg-yellow-400 h-2 rounded-full transition-all duration-500" id="summary-bar-0" style="width: 95.37%"></div>
                 </div>
             </div>
             <div class="card border-l-4 border-yellow-400">
                 <p class="metric-label">TIJ2-ENSENADA</p>
-                <p class="metric-value">96.93%</p>
+                <p class="metric-value" id="summary-val-1">96.93%</p>
                 <div class="w-full bg-gray-200 h-2 rounded-full mt-2">
-                    <div class="bg-yellow-400 h-2 rounded-full" style="width: 96.93%"></div>
+                    <div class="bg-yellow-400 h-2 rounded-full transition-all duration-500" id="summary-bar-1" style="width: 96.93%"></div>
                 </div>
             </div>
             <div class="card border-l-4 border-yellow-400">
                 <p class="metric-label">Mexicali</p>
-                <p class="metric-value">97.59%</p>
+                <p class="metric-value" id="summary-val-2">97.59%</p>
                 <div class="w-full bg-gray-200 h-2 rounded-full mt-2">
-                    <div class="bg-yellow-400 h-2 rounded-full" style="width: 97.59%"></div>
+                    <div class="bg-yellow-400 h-2 rounded-full transition-all duration-500" id="summary-bar-2" style="width: 97.59%"></div>
                 </div>
             </div>
             <div class="card border-l-4 border-yellow-400">
                 <p class="metric-label">San Quintín</p>
-                <p class="metric-value">98.71%</p>
+                <p class="metric-value" id="summary-val-3">93.39%</p>
                 <div class="w-full bg-gray-200 h-2 rounded-full mt-2">
-                    <div class="bg-yellow-400 h-2 rounded-full" style="width: 98.71%"></div>
+                    <div class="bg-yellow-400 h-2 rounded-full transition-all duration-500" id="summary-bar-3" style="width: 93.39%"></div>
                 </div>
             </div>
         </div>
@@ -76,7 +76,19 @@
 
         <!-- Detailed Tables -->
         <div class="space-y-6">
-            <h2 class="text-2xl font-bold text-gray-700 pt-4 text-center">Detalle por Ubicación</h2>
+            <div class="flex flex-col md:flex-row items-center justify-between pt-4 px-2">
+                <h2 class="text-2xl font-bold text-gray-700">Detalle por Ubicación</h2>
+                <div class="flex gap-3 mt-4 md:mt-0">
+                    <button id="btn-edit" onclick="toggleEdit()" class="bg-indigo-600 hover:bg-indigo-500 text-white font-bold py-2 px-5 rounded-lg shadow-md transition-colors flex items-center gap-2">
+                        <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg>
+                        Editar
+                    </button>
+                    <button onclick="saveData()" class="bg-yellow-500 hover:bg-yellow-400 text-slate-900 font-bold py-2 px-5 rounded-lg shadow-md transition-colors flex items-center gap-2">
+                        <svg width="18" height="18" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"></path><polyline stroke-linecap="round" stroke-linejoin="round" stroke-width="2" points="17 21 17 13 7 13 7 21"></polyline><polyline stroke-linecap="round" stroke-linejoin="round" stroke-width="2" points="7 3 7 8 15 8"></polyline></svg>
+                        Guardar
+                    </button>
+                </div>
+            </div>
             
             <!-- Contenedor 4x1 pegado con scroll asegurado -->
             <div class="grid-tight-container">
@@ -84,7 +96,7 @@
                 
                 <!-- Cabos -->
                 <div class="grid-tight-item">
-                    <div class="bg-slate-50 p-2 border-b border-gray-200 font-bold text-slate-700 text-sm">Cabos sem 17</div>
+                    <div class="bg-slate-50 p-2 border-b border-gray-200 font-bold text-slate-700 text-sm">Cabos <span class="week-label"></span></div>
                     <table class="w-full text-[10px] xl:text-xs text-left">
                         <thead>
                             <tr class="bg-white text-[10px] uppercase text-gray-400">
@@ -97,27 +109,27 @@
                         <tbody class="divide-y divide-gray-50">
                             <tr>
                                 <td class="p-2 font-semibold">Movpi</td>
-                                <td class="p-2 text-right">28,499.75</td>
-                                <td class="p-2 text-right">895.19</td>
-                                <td class="p-2 text-right text-indigo-600 font-medium">3.14%</td>
+                                <td class="p-2 text-right"><input type="number" id="cabos-diesel-0" class="w-full bg-transparent border-b border-gray-200 focus:border-indigo-500 outline-none text-right px-1" value="28499.75" oninput="recalculate()"></td>
+                                <td class="p-2 text-right"><input type="number" id="cabos-kpi-0" class="w-full bg-transparent border-b border-gray-200 focus:border-indigo-500 outline-none text-right px-1" value="895.19" oninput="recalculate()"></td>
+                                <td class="p-2 text-right text-indigo-600 font-medium" id="cabos-res-0">3.14%</td>
                             </tr>
                             <tr>
                                 <td class="p-2 font-semibold">km vacio</td>
-                                <td class="p-2 text-right">28,499.75</td>
-                                <td class="p-2 text-right">-1,609.76</td>
-                                <td class="p-2 text-right">0.00%</td>
+                                <td class="p-2 text-right"><input type="number" id="cabos-diesel-1" class="w-full bg-transparent border-b border-gray-200 focus:border-indigo-500 outline-none text-right px-1" value="28499.75" oninput="recalculate()"></td>
+                                <td class="p-2 text-right"><input type="number" id="cabos-kpi-1" class="w-full bg-transparent border-b border-gray-200 focus:border-indigo-500 outline-none text-right px-1" value="-1609.767" oninput="recalculate()"></td>
+                                <td class="p-2 text-right text-indigo-600 font-medium" id="cabos-res-1">0.00%</td>
                             </tr>
                             <tr>
                                 <td class="p-2 font-semibold">p. ARRANQUE</td>
-                                <td class="p-2 text-right">28,499.75</td>
-                                <td class="p-2 text-right">423.85</td>
-                                <td class="p-2 text-right text-indigo-600 font-medium">1.49%</td>
+                                <td class="p-2 text-right"><input type="number" id="cabos-diesel-2" class="w-full bg-transparent border-b border-gray-200 focus:border-indigo-500 outline-none text-right px-1" value="28499.75" oninput="recalculate()"></td>
+                                <td class="p-2 text-right"><input type="number" id="cabos-kpi-2" class="w-full bg-transparent border-b border-gray-200 focus:border-indigo-500 outline-none text-right px-1" value="423.8496705" oninput="recalculate()"></td>
+                                <td class="p-2 text-right text-indigo-600 font-medium" id="cabos-res-2">1.49%</td>
                             </tr>
                         </tbody>
                         <tfoot class="bg-yellow-50">
                             <tr class="font-bold">
                                 <td class="p-2 text-right" colspan="3">Resultado Final:</td>
-                                <td class="p-2 text-right text-yellow-700">95.37%</td>
+                                <td class="p-2 text-right text-yellow-700" id="cabos-final">95.37%</td>
                             </tr>
                         </tfoot>
                     </table>
@@ -125,7 +137,7 @@
 
                 <!-- TIJ2-ENSENADA -->
                 <div class="grid-tight-item">
-                    <div class="bg-slate-50 p-2 border-b border-gray-200 font-bold text-slate-700 text-sm">TIJ2-ENSENADA sem 17</div>
+                    <div class="bg-slate-50 p-2 border-b border-gray-200 font-bold text-slate-700 text-sm">TIJ2-ENSENADA <span class="week-label"></span></div>
                     <table class="w-full text-[10px] xl:text-xs text-left">
                         <thead>
                             <tr class="bg-white text-[10px] uppercase text-gray-400">
@@ -138,27 +150,27 @@
                         <tbody class="divide-y divide-gray-50">
                             <tr>
                                 <td class="p-2 font-semibold">Movpi</td>
-                                <td class="p-2 text-right">147,231.29</td>
-                                <td class="p-2 text-right">3,670.38</td>
-                                <td class="p-2 text-right text-indigo-600 font-medium">2.49%</td>
+                                <td class="p-2 text-right"><input type="number" id="tij2-diesel-0" class="w-full bg-transparent border-b border-gray-200 focus:border-indigo-500 outline-none text-right px-1" value="147231.29" oninput="recalculate()"></td>
+                                <td class="p-2 text-right"><input type="number" id="tij2-kpi-0" class="w-full bg-transparent border-b border-gray-200 focus:border-indigo-500 outline-none text-right px-1" value="3670.38" oninput="recalculate()"></td>
+                                <td class="p-2 text-right text-indigo-600 font-medium" id="tij2-res-0">2.49%</td>
                             </tr>
                             <tr>
                                 <td class="p-2 font-semibold">km vacio</td>
-                                <td class="p-2 text-right">147,231.29</td>
-                                <td class="p-2 text-right">-6,433.15</td>
-                                <td class="p-2 text-right">0.00%</td>
+                                <td class="p-2 text-right"><input type="number" id="tij2-diesel-1" class="w-full bg-transparent border-b border-gray-200 focus:border-indigo-500 outline-none text-right px-1" value="147231.29" oninput="recalculate()"></td>
+                                <td class="p-2 text-right"><input type="number" id="tij2-kpi-1" class="w-full bg-transparent border-b border-gray-200 focus:border-indigo-500 outline-none text-right px-1" value="-6433.15" oninput="recalculate()"></td>
+                                <td class="p-2 text-right text-indigo-600 font-medium" id="tij2-res-1">0.00%</td>
                             </tr>
                             <tr>
                                 <td class="p-2 font-semibold">p. ARRANQUE</td>
-                                <td class="p-2 text-right">147,231.29</td>
-                                <td class="p-2 text-right">853.47</td>
-                                <td class="p-2 text-right text-indigo-600 font-medium">0.58%</td>
+                                <td class="p-2 text-right"><input type="number" id="tij2-diesel-2" class="w-full bg-transparent border-b border-gray-200 focus:border-indigo-500 outline-none text-right px-1" value="147231.29" oninput="recalculate()"></td>
+                                <td class="p-2 text-right"><input type="number" id="tij2-kpi-2" class="w-full bg-transparent border-b border-gray-200 focus:border-indigo-500 outline-none text-right px-1" value="853.4704206" oninput="recalculate()"></td>
+                                <td class="p-2 text-right text-indigo-600 font-medium" id="tij2-res-2">0.58%</td>
                             </tr>
                         </tbody>
                         <tfoot class="bg-yellow-50">
                             <tr class="font-bold">
                                 <td class="p-2 text-right" colspan="3">Resultado Final:</td>
-                                <td class="p-2 text-right text-yellow-700">96.93%</td>
+                                <td class="p-2 text-right text-yellow-700" id="tij2-final">96.93%</td>
                             </tr>
                         </tfoot>
                     </table>
@@ -166,7 +178,7 @@
 
                 <!-- Mexicali -->
                 <div class="grid-tight-item">
-                    <div class="bg-slate-50 p-2 border-b border-gray-200 font-bold text-slate-700 text-sm">Mexicali sem 17</div>
+                    <div class="bg-slate-50 p-2 border-b border-gray-200 font-bold text-slate-700 text-sm">Mexicali <span class="week-label"></span></div>
                     <table class="w-full text-[10px] xl:text-xs text-left">
                         <thead>
                             <tr class="bg-white text-[10px] uppercase text-gray-400">
@@ -179,27 +191,27 @@
                         <tbody class="divide-y divide-gray-50">
                             <tr>
                                 <td class="p-2 font-semibold">Movpi</td>
-                                <td class="p-2 text-right">32,562.85</td>
-                                <td class="p-2 text-right">694.24</td>
-                                <td class="p-2 text-right text-indigo-600 font-medium">2.13%</td>
+                                <td class="p-2 text-right"><input type="number" id="mexicali-diesel-0" class="w-full bg-transparent border-b border-gray-200 focus:border-indigo-500 outline-none text-right px-1" value="32562.85" oninput="recalculate()"></td>
+                                <td class="p-2 text-right"><input type="number" id="mexicali-kpi-0" class="w-full bg-transparent border-b border-gray-200 focus:border-indigo-500 outline-none text-right px-1" value="694.24" oninput="recalculate()"></td>
+                                <td class="p-2 text-right text-indigo-600 font-medium" id="mexicali-res-0">2.13%</td>
                             </tr>
                             <tr>
                                 <td class="p-2 font-semibold">km vacio</td>
-                                <td class="p-2 text-right">32,562.85</td>
-                                <td class="p-2 text-right">-658.33</td>
-                                <td class="p-2 text-right">0.00%</td>
+                                <td class="p-2 text-right"><input type="number" id="mexicali-diesel-1" class="w-full bg-transparent border-b border-gray-200 focus:border-indigo-500 outline-none text-right px-1" value="32562.85" oninput="recalculate()"></td>
+                                <td class="p-2 text-right"><input type="number" id="mexicali-kpi-1" class="w-full bg-transparent border-b border-gray-200 focus:border-indigo-500 outline-none text-right px-1" value="-658.331" oninput="recalculate()"></td>
+                                <td class="p-2 text-right text-indigo-600 font-medium" id="mexicali-res-1">0.00%</td>
                             </tr>
                             <tr>
                                 <td class="p-2 font-semibold">p. ARRANQUE</td>
-                                <td class="p-2 text-right">32,562.85</td>
-                                <td class="p-2 text-right">90.87</td>
-                                <td class="p-2 text-right text-indigo-600 font-medium">0.28%</td>
+                                <td class="p-2 text-right"><input type="number" id="mexicali-diesel-2" class="w-full bg-transparent border-b border-gray-200 focus:border-indigo-500 outline-none text-right px-1" value="32562.85" oninput="recalculate()"></td>
+                                <td class="p-2 text-right"><input type="number" id="mexicali-kpi-2" class="w-full bg-transparent border-b border-gray-200 focus:border-indigo-500 outline-none text-right px-1" value="90.86858971" oninput="recalculate()"></td>
+                                <td class="p-2 text-right text-indigo-600 font-medium" id="mexicali-res-2">0.28%</td>
                             </tr>
                         </tbody>
                         <tfoot class="bg-yellow-50">
                             <tr class="font-bold">
                                 <td class="p-2 text-right" colspan="3">Resultado Final:</td>
-                                <td class="p-2 text-right text-yellow-700">97.59%</td>
+                                <td class="p-2 text-right text-yellow-700" id="mexicali-final">97.59%</td>
                             </tr>
                         </tfoot>
                     </table>
@@ -207,7 +219,7 @@
 
                 <!-- San Quintín -->
                 <div class="grid-tight-item">
-                    <div class="bg-slate-50 p-2 border-b border-gray-200 font-bold text-slate-700 text-sm">San Quintín sem 17</div>
+                    <div class="bg-slate-50 p-2 border-b border-gray-200 font-bold text-slate-700 text-sm">San Quintín <span class="week-label"></span></div>
                     <table class="w-full text-[10px] xl:text-xs text-left">
                         <thead>
                             <tr class="bg-white text-[10px] uppercase text-gray-400">
@@ -220,27 +232,27 @@
                         <tbody class="divide-y divide-gray-50">
                             <tr>
                                 <td class="p-2 font-semibold">Movpi</td>
-                                <td class="p-2 text-right">122,273.04</td>
-                                <td class="p-2 text-right">1,288.43</td>
-                                <td class="p-2 text-right text-indigo-600 font-medium">1.05%</td>
+                                <td class="p-2 text-right"><input type="number" id="sanquintin-diesel-0" class="w-full bg-transparent border-b border-gray-200 focus:border-indigo-500 outline-none text-right px-1" value="122273.04" oninput="recalculate()"></td>
+                                <td class="p-2 text-right"><input type="number" id="sanquintin-kpi-0" class="w-full bg-transparent border-b border-gray-200 focus:border-indigo-500 outline-none text-right px-1" value="1288.43" oninput="recalculate()"></td>
+                                <td class="p-2 text-right text-indigo-600 font-medium" id="sanquintin-res-0">1.05%</td>
                             </tr>
                             <tr>
                                 <td class="p-2 font-semibold">km vacio</td>
-                                <td class="p-2 text-right">122,273.04</td>
-                                <td class="p-2 text-right">6,510.08</td>
-                                <td class="p-2 text-right">0.00%</td>
+                                <td class="p-2 text-right"><input type="number" id="sanquintin-diesel-1" class="w-full bg-transparent border-b border-gray-200 focus:border-indigo-500 outline-none text-right px-1" value="122273.04" oninput="recalculate()"></td>
+                                <td class="p-2 text-right"><input type="number" id="sanquintin-kpi-1" class="w-full bg-transparent border-b border-gray-200 focus:border-indigo-500 outline-none text-right px-1" value="6510.084" oninput="recalculate()"></td>
+                                <td class="p-2 text-right text-indigo-600 font-medium" id="sanquintin-res-1">5.32%</td>
                             </tr>
                             <tr>
                                 <td class="p-2 font-semibold">p. ARRANQUE</td>
-                                <td class="p-2 text-right">122,273.04</td>
-                                <td class="p-2 text-right">287.74</td>
-                                <td class="p-2 text-right text-indigo-600 font-medium">0.24%</td>
+                                <td class="p-2 text-right"><input type="number" id="sanquintin-diesel-2" class="w-full bg-transparent border-b border-gray-200 focus:border-indigo-500 outline-none text-right px-1" value="122273.04" oninput="recalculate()"></td>
+                                <td class="p-2 text-right"><input type="number" id="sanquintin-kpi-2" class="w-full bg-transparent border-b border-gray-200 focus:border-indigo-500 outline-none text-right px-1" value="287.7424342" oninput="recalculate()"></td>
+                                <td class="p-2 text-right text-indigo-600 font-medium" id="sanquintin-res-2">0.24%</td>
                             </tr>
                         </tbody>
                         <tfoot class="bg-yellow-50">
                             <tr class="font-bold">
                                 <td class="p-2 text-right" colspan="3">Resultado Final:</td>
-                                <td class="p-2 text-right text-yellow-700">98.71%</td>
+                                <td class="p-2 text-right text-yellow-700" id="sanquintin-final">93.39%</td>
                             </tr>
                         </tfoot>
                     </table>
@@ -251,62 +263,171 @@
     </main>
 
     <script>
-        const ctxPerformance = document.getElementById('performanceChart').getContext('2d');
-        const performanceChart = new Chart(ctxPerformance, {
-            type: 'bar',
-            data: {
-                labels: ['Cabos', 'TIJ2-ENSENADA', 'Mexicali', 'San Quintín'],
-                datasets: [{
-                    label: '% Eficiencia Total',
-                    data: [95.37, 96.93, 97.59, 98.71],
-                    backgroundColor: 'rgba(234, 179, 8, 0.6)',
-                    borderColor: 'rgb(234, 179, 8)',
-                    borderWidth: 1,
-                    borderRadius: 8
-                }]
-            },
-            options: {
-                responsive: true,
-                scales: {
-                    y: {
-                        beginAtZero: false,
-                        min: 90,
-                        max: 100
-                    }
-                }
-            }
-        });
+        let performanceChart;
+        let kpiBreakdownChart;
 
-        const ctxKpi = document.getElementById('kpiBreakdownChart').getContext('2d');
-        const kpiBreakdownChart = new Chart(ctxKpi, {
-            type: 'line',
-            data: {
-                labels: ['Cabos', 'TIJ2-ENSENADA', 'Mexicali', 'San Quintín'],
-                datasets: [
-                    {
-                        label: 'Movpi %',
-                        data: [3.14, 2.49, 2.13, 1.05],
-                        borderColor: '#4f46e5',
-                        fill: false,
-                        tension: 0.1
-                    },
-                    {
-                        label: 'p. ARRANQUE %',
-                        data: [1.49, 0.58, 0.28, 0.24],
-                        borderColor: '#10b981',
-                        fill: false,
-                        tension: 0.1
-                    }
-                ]
-            },
-            options: {
-                responsive: true,
-                plugins: {
-                    legend: {
-                        position: 'top',
-                    }
+        function getISOWeek(date) {
+            const d = new Date(Date.UTC(date.getFullYear(), date.getMonth(), date.getDate()));
+            const dayNum = d.getUTCDay() || 7;
+            d.setUTCDate(d.getUTCDate() + 4 - dayNum);
+            const yearStart = new Date(Date.UTC(d.getUTCFullYear(), 0, 1));
+            return Math.ceil((((d - yearStart) / 86400000) + 1) / 7);
+        }
+
+        function updateWeekText() {
+            let week = getISOWeek(new Date()) - 1;
+            if (week <= 0) week = 52;
+            
+            document.getElementById('page-title').textContent = `Reporte de Resultados - Semana ${week}`;
+            document.getElementById('main-title').textContent = `Resumen Operativo - Semana ${week}`;
+            document.querySelectorAll('.week-label').forEach(el => el.textContent = `sem ${week}`);
+        }
+
+        function recalculate() {
+            const regions = [
+                { id: 'cabos', index: 0 },
+                { id: 'tij2', index: 1 },
+                { id: 'mexicali', index: 2 },
+                { id: 'sanquintin', index: 3 }
+            ];
+
+            const perfData = [];
+            const kpiDataMovpi = [];
+            const kpiDataArranque = [];
+
+            regions.forEach(region => {
+                let totalInefficiency = 0;
+                
+                for (let i = 0; i < 3; i++) {
+                    const diesel = parseFloat(document.getElementById(`${region.id}-diesel-${i}`).value) || 0;
+                    const kpi = parseFloat(document.getElementById(`${region.id}-kpi-${i}`).value) || 0;
+                    let res = diesel > 0 ? (kpi / diesel) * 100 : 0;
+                    if (kpi < 0) res = 0; // Si es negativo, el resultado es 0%
+                    
+                    document.getElementById(`${region.id}-res-${i}`).textContent = res.toFixed(2) + '%';
+                    totalInefficiency += res;
+
+                    if (i === 0) kpiDataMovpi.push(res.toFixed(2));
+                    if (i === 2) kpiDataArranque.push(res.toFixed(2));
                 }
+
+                const finalRes = 100 - totalInefficiency;
+                document.getElementById(`${region.id}-final`).textContent = finalRes.toFixed(2) + '%';
+
+                // Update summary dashboard
+                document.getElementById(`summary-val-${region.index}`).textContent = finalRes.toFixed(2) + '%';
+                document.getElementById(`summary-bar-${region.index}`).style.width = Math.max(0, Math.min(100, finalRes)) + '%';
+
+                perfData.push(finalRes.toFixed(2));
+            });
+
+            if (performanceChart) {
+                performanceChart.data.datasets[0].data = perfData;
+                performanceChart.update();
             }
+            if (kpiBreakdownChart) {
+                kpiBreakdownChart.data.datasets[0].data = kpiDataMovpi;
+                kpiBreakdownChart.data.datasets[1].data = kpiDataArranque;
+                kpiBreakdownChart.update();
+            }
+        }
+
+        function toggleEdit() {
+            const inputs = document.querySelectorAll('input[type="number"]');
+            const btn = document.getElementById('btn-edit');
+            const isEditing = !inputs[0].readOnly;
+            
+            if (isEditing) {
+                // Bloquear nuevamente
+                inputs.forEach(input => {
+                    input.readOnly = true;
+                    input.classList.remove('bg-indigo-50', 'text-indigo-900');
+                    input.classList.add('bg-transparent');
+                });
+                btn.innerHTML = '<svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg> Editar';
+            } else {
+                // Habilitar edición visual y funcionalmente
+                inputs.forEach(input => {
+                    input.readOnly = false;
+                    input.classList.add('bg-indigo-50', 'text-indigo-900');
+                    input.classList.remove('bg-transparent');
+                });
+                btn.innerHTML = '<svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><line x1="9" y1="9" x2="15" y2="15"></line><line x1="15" y1="9" x2="9" y2="15"></line></svg> Cancelar Edición';
+            }
+        }
+
+        function saveData() {
+            const inputs = document.querySelectorAll('input[type="number"]');
+            const data = {};
+            inputs.forEach(input => {
+                data[input.id] = input.value;
+                // Bloquear después de guardar exitosamente
+                input.readOnly = true;
+                input.classList.remove('bg-indigo-50', 'text-indigo-900');
+                input.classList.add('bg-transparent');
+            });
+            localStorage.setItem('kpiDataOperativo', JSON.stringify(data));
+            
+            // Restaurar estado del botón de edición
+            const btn = document.getElementById('btn-edit');
+            if (btn) btn.innerHTML = '<svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg> Editar';
+
+            alert('Datos guardados correctamente.');
+        }
+
+        function loadData() {
+            const saved = localStorage.getItem('kpiDataOperativo');
+            if (saved) {
+                try {
+                    const data = JSON.parse(saved);
+                    for (const key in data) {
+                        const input = document.getElementById(key);
+                        if (input) input.value = data[key];
+                    }
+                } catch(e) { console.error('Error cargando datos:', e); }
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            updateWeekText();
+            
+            const ctxPerformance = document.getElementById('performanceChart').getContext('2d');
+            performanceChart = new Chart(ctxPerformance, {
+                type: 'bar',
+                data: {
+                    labels: ['Cabos', 'TIJ2-ENSENADA', 'Mexicali', 'San Quintín'],
+                    datasets: [{
+                        label: '% Eficiencia Total',
+                        data: [0, 0, 0, 0], // Se llenará con recalculate()
+                        backgroundColor: 'rgba(234, 179, 8, 0.6)',
+                        borderColor: 'rgb(234, 179, 8)',
+                        borderWidth: 1,
+                        borderRadius: 8
+                    }]
+                },
+                options: { responsive: true, scales: { y: { beginAtZero: false, min: 90, max: 100 } } }
+            });
+
+            const ctxKpi = document.getElementById('kpiBreakdownChart').getContext('2d');
+            kpiBreakdownChart = new Chart(ctxKpi, {
+                type: 'line',
+                data: {
+                    labels: ['Cabos', 'TIJ2-ENSENADA', 'Mexicali', 'San Quintín'],
+                    datasets: [
+                        { label: 'Movpi %', data: [0, 0, 0, 0], borderColor: '#4f46e5', fill: false, tension: 0.1 },
+                        { label: 'p. ARRANQUE %', data: [0, 0, 0, 0], borderColor: '#10b981', fill: false, tension: 0.1 }
+                    ]
+                },
+                options: { responsive: true, plugins: { legend: { position: 'top' } } }
+            });
+
+            // Bloquear inputs por defecto al cargar la página
+            document.querySelectorAll('input[type="number"]').forEach(input => {
+                input.readOnly = true;
+            });
+
+            loadData();
+            recalculate(); // Ejecuta cálculos iniciales
         });
     </script>
 </body>
